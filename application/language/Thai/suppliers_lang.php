@@ -1,17 +1,17 @@
 <?php
-$lang['suppliers_new']='ผู้ผลิตรายใหม่';
-$lang['suppliers_supplier']='ผู้ผลิต';
-$lang['suppliers_update']='ปรับปรุงผู้ผลิต';
-$lang['suppliers_confirm_delete']='แน่ใจหรือไม่ที่จะลบผู้ผลิตที่ถููกเลือก?';
-$lang['suppliers_none_selected']='คุณยังไม่ได้เฃือกผู้ผลิตที่ต้องการลบ';
-$lang['suppliers_error_adding_updating'] = 'เพิ่ม/แก้ไข ผู้ผลิต ล้มเหลว';
-$lang['suppliers_successful_adding']='เพิ่มผู้ผลิตสำเร็จ';
-$lang['suppliers_successful_updating']='ปรับปรุงผู้ผลิตสำเร็จ';
-$lang['suppliers_successful_deleted']='ลบสำเร็จ';
-$lang['suppliers_one_or_multiple']='ผู้ผลิต';
-$lang['suppliers_cannot_be_deleted']='ลบผู้ผลิตที่ถูกเลือกไม่ได้, one or more of the selected suppliers has sales.';
-$lang['suppliers_basic_information']='ข้อมูลผู้ผลิต';
-$lang['suppliers_account_number']='บัญชี #';
-$lang['suppliers_company_name']='ชื่อบริษัท';
-$lang['suppliers_company_name_required'] = 'ชื่อบริษัทต้องกรอก';
+$lang['suppliers_new']='New Supplier';
+$lang['suppliers_supplier']='Supplier';
+$lang['suppliers_update']='Update Supplier';
+$lang['suppliers_confirm_delete']='Are you sure you want to delete the selected suppliers?';
+$lang['suppliers_none_selected']='You have not selected any suppliers to delete';
+$lang['suppliers_error_adding_updating'] = 'Error adding/updating supplier';
+$lang['suppliers_successful_adding']='You have successfully added supplier';
+$lang['suppliers_successful_updating']='You have successfully updated supplier';
+$lang['suppliers_successful_deleted']='You have successfully deleted';
+$lang['suppliers_one_or_multiple']='supplier(s)';
+$lang['suppliers_cannot_be_deleted']='Could not deleted selected suppliers, one or more of the selected suppliers has sales.';
+$lang['suppliers_basic_information']='Supplier Information';
+$lang['suppliers_account_number']='Account #';
+$lang['suppliers_company_name']='Company Name';
+$lang['suppliers_company_name_required'] = 'Company Name is a required field';
 ?>
