@@ -1,5 +1,5 @@
 <?php
-$lang['items_item_number']='UPC/EAN/ISBN';
+$lang['items_item_number']='โค๊ด';
 $lang['items_retrive_item_info']='รับข้อมูลสินค้า';
 $lang['items_description']='รายละเอียด';
 $lang['items_amazon']='Amazon';
@@ -14,14 +14,14 @@ $lang['items_item']='สินค้า';
 $lang['items_edit_multiple_items']='แก้ใขสินค้าต่างๆ';
 $lang['items_name']='ชื่อสินค้า';
 $lang['items_category']='หมวดหมู่';
-$lang['items_cost_price']='ราคาขายส่ง';//GARRISON ADDED 4/21/2013
-$lang['items_unit_price']='ราคาขายปลีก';//GARRISON ADDED 4/21/2013
+$lang['items_cost_price']='ราคาส่ง';//GARRISON ADDED 4/21/2013
+$lang['items_unit_price']='ราคาปลีก';//GARRISON ADDED 4/21/2013
 $lang['items_tax_1']='ภาษี 1';
 $lang['items_tax_2']='ภาษี 2';
 $lang['items_sales_tax_1'] = 'ถาษีขาย';
 $lang['items_sales_tax_2'] = 'ภาษีขาย 2';
-$lang['items_tax_percent']='เปอร์เซ็นต์ภาษี';
-$lang['items_tax_percents']='เปอร์เซ็นต์ภาษี(s)';
+$lang['items_tax_percent']='ภาษี(%)';
+$lang['items_tax_percents']='ภาษี(%)';
 $lang['items_reorder_level']='ระดับการสั่งใหม่';
 $lang['items_quantity']='จำนวน';
 $lang['items_reorder_level']='ระดับการสั่งใหม่';

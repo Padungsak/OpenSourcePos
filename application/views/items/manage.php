@@ -176,7 +176,7 @@ function show_hide_search_filter(search_filter_section, switchImgTag) {
 	</ul>
 </div>
 
-<div id="table_holder">
+<div id="table_holder" style="font-size:14px">
 <?php echo $manage_table; ?>
 </div>
 <div id="feedback_bar"></div>
