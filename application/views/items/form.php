@@ -159,6 +159,29 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 	</div>
 </div>
 
+<div class="field_row clearfix">    
+<?php echo form_label($this->lang->line('items_unit_quantity').':', 'unit_quantity',array('class'=>'wide')); ?>
+    <div class='form_field'>
+    <?php echo form_input(array(
+        'name'=>'unit_quantity',
+        'id'=>'unit_quantity',
+        'value'=>$item_unit_info->unit_quantity)
+    );?>
+    </div>
+</div>
+
+<div class="field_row clearfix">    
+<?php echo form_label($this->lang->line('items_related_number').':', 'related_number',array('class'=>'wide')); ?>
+    <div class='form_field'>
+    <?php echo form_input(array(
+        'name'=>'related_number',
+        'id'=>'related_number',
+        'value'=>$item_unit_info->related_number)
+    );?>
+    </div>
+</div>
+
+
 <div class="field_row clearfix">
 <?php echo form_label($this->lang->line('items_allow_alt_desciption').':', 'allow_alt_description',array('class'=>'wide')); ?>
 	<div class='form_field'>

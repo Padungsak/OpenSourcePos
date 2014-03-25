@@ -199,6 +199,8 @@ class Items extends Secure_area implements iData_controller
 		$data['selected_supplier'] = $this->Item->get_info($item_id)->supplier_id;
 		$data['default_tax_1_rate']=($item_id==-1) ? $this->Appconfig->get('default_tax_1_rate') : '';
 		$data['default_tax_2_rate']=($item_id==-1) ? $this->Appconfig->get('default_tax_2_rate') : '';
+        
+        $data['item_unit_info']=$this->Item_unit->get_info($item_id);
 		$this->load->view("items/form",$data);
 	}
 	
@@ -318,6 +320,12 @@ class Items extends Secure_area implements iData_controller
 				}
 			}
 			$this->Item_taxes->save($items_taxes_data, $item_id);
+            
+            $items_unit_data = array(
+            'item_id'=>$item_id,
+            'unit_quantity'=>$this->input->post('unit_quantity'),
+            'related_number'=>$this->input->post('related_number'));
+            $this->Item_unit->save($items_unit_data, $item_id);
 		}
 		else//failure
 		{
