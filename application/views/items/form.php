@@ -165,7 +165,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
     <?php echo form_input(array(
         'name'=>'unit_quantity',
         'id'=>'unit_quantity',
-        'value'=>$item_unit_info->unit_quantity)
+        'value'=>($item_unit_info->unit_quantity) ? $item_unit_info->unit_quantity : 1)
     );?>
     </div>
 </div>

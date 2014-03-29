@@ -125,6 +125,87 @@ class Receiving_lib
 
 	}
 
+    function add_item_unit($item_id,$quantity=1, $description=null)
+    {
+        //make sure item exists in database.
+        if(!$this->CI->Item->exists($item_id))
+        {
+            //try to get item id given an item_number
+            $item_id = $this->CI->Item->get_item_id($item_id);
+            
+            //If it is not a pack then it is not in the back store
+            if($this->CI->Item_unit->get_info($item_id)->related_number == null)
+                return false;
+            if(!$item_id)
+                return false;
+        }
+
+        //Get items in the requisition so far.
+        $items = $this->get_cart();
+
+        //We need to loop through all items in the cart.
+        //If the item is already there, get it's key($updatekey).
+        //We also need to get the next key that we are going to use in case we need to add the
+        //item to the list. Since items can be deleted, we can't use a count. we use the highest key + 1.
+
+        $maxkey=0;                       //Highest key so far
+        $itemalreadyinsale=FALSE;        //We did not find the item yet.
+        $insertkey=0;                    //Key to use for new entry.
+        $updatekey=0;                    //Key to use to update(quantity)
+
+        foreach ($items as $item)
+        {
+            //We primed the loop so maxkey is 0 the first time.
+            //Also, we have stored the key in the element itself so we can compare.
+            //There is an array function to get the associated key for an element, but I like it better
+            //like that!
+
+            if($maxkey <= $item['line'])
+            {
+                $maxkey = $item['line'];
+            }
+
+            if($item['item_id']==$item_id)
+            {
+                $itemalreadyinsale=TRUE;
+                $updatekey=$item['line'];
+            }
+        }
+
+        $insertkey=$maxkey+1;
+                        
+        $related_item = 
+
+        //array records are identified by $insertkey and item_id is just another field.
+        $item = array(($insertkey)=>
+        array(
+            'item_id'=>$item_id,
+            'line'=>$insertkey,
+            'name'=>$this->CI->Item->get_info($item_id)->name,
+            'description'=>$description!=null ? $description: $this->CI->Item->get_info($item_id)->description,
+            'quantity'=>$quantity
+            )
+        );
+        
+        $item[$insertkey]['unit_quantity']= $this->CI->Item_unit->get_info($item_id)->unit_quantity;
+        $item[$insertkey]['related_item'] = $this->CI->Item->get_info($this->CI->Item->get_item_id($this->CI->Item_unit->get_info($item_id)->related_number))->name;
+
+        //Item already exists
+        if($itemalreadyinsale)
+        {
+            $items[$updatekey]['quantity']+=$quantity;
+        }
+        else
+        {
+            //add to existing array
+            $items+=$item;
+        }
+
+        $this->set_cart($items);
+        return true;
+
+    }
+
 	function edit_item($line,$description,$serialnumber,$quantity,$discount,$price)
 	{
 		$items = $this->get_cart();
@@ -140,6 +221,18 @@ class Receiving_lib
 
 		return false;
 	}
+    
+    function edit_item_unit($line,$description,$quantity,$unit_quantity,$related_item)
+    {
+        $items = $this->get_cart();
+        if(isset($items[$line]))
+        {          
+            $items[$line]['quantity'] = $quantity;
+            $this->set_cart($items);
+        }
+
+        return false;
+    }
 
 	function is_valid_receipt($receipt_receiving_id)
 	{

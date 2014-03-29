@@ -3,6 +3,7 @@ $lang['recvs_register']='Items Receiving';
 $lang['recvs_mode']='Receiving Mode';
 $lang['recvs_receiving']='Receive';
 $lang['recvs_return']='Return';
+$lang['recvs_requisition']='Requisition';
 $lang['recvs_total']='Total';
 $lang['recvs_cost']='Cost';
 $lang['recvs_quantity']='Qty.';
@@ -23,4 +24,13 @@ $lang['recvs_find_or_scan_item_or_receipt']='Find/Scan Item OR Receipt';
 $lang['recvs_id']='Receiving ID';
 $lang['recvs_item_name'] = 'Item Name';
 $lang['receivings_transaction_failed'] = 'Receivings Transactions Failed';
+
+$lang['reqs_quantity'] ='Qty.';
+$lang['reqs_related_item']='Related item';
+$lang['reqs_unit_quantity']='Unit qty.';
+$lang['reqs_unit_quantity_total']='Total qty.';
+$lang['reqs_related_item_quantity']='Related item qty.';
+$lang['reqs_receipt']='Requisition Receipt';
+$lang['reqs_transaction_failed'] = 'Requisition Transactions Failed';
+$lang['reqs_unable_to_add_item']='Unable to add item to requisition';
 ?>

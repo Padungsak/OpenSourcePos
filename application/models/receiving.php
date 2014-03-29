@@ -83,6 +83,72 @@ class Receiving extends CI_Model
 		return $receiving_id;
 	}
 
+    function save_requisition ($items,$employee_id,$comment,$receiving_id=false)
+    {
+        if(count($items)==0)
+            return -1;
+
+        $requisition_data = array(
+        'employee_id'=>$employee_id,
+        'comment'=>$comment
+        );
+
+        //Run these queries as a transaction, we want to make sure we do all or nothing
+        $this->db->trans_start();
+
+        $this->db->insert('requisitions',$requisition_data);
+        
+        $requisition_id = $this->db->insert_id();
+
+
+        foreach($items as $line=>$item)
+        {
+            $cur_item_info = $this->Item->get_info($item['item_id']);
+            $related_item_id = $this->Item->get_item_id($this->Item_unit->get_info($item['item_id'])->related_number);
+            $related_item_quantity = $this->Item_unit->get_info($item['item_id'])->unit_quantity;
+            $requisition_items_data = array
+            (
+                'requisition_id'=>$requisition_id,
+                'item_id'=>$item['item_id'],
+                'line'=>$item['line'],
+                'requisition_quantity'=>$item['quantity'],
+                'related_item_id'=>$related_item_id,
+                'related_item_quantity'=>$this->Item_unit->get_info($item['item_id'])->unit_quantity,
+                'related_item_total_quantity' => $item['quantity']*$related_item_quantity
+            );
+
+            $this->db->insert('requisitions_items',$requisition_items_data);
+
+            //Update stock quantity
+            $item_data = array('quantity'=>$cur_item_info->quantity - $item['quantity']);
+            $this->Item->save($item_data,$item['item_id']);
+            
+            $related_item_data = array('quantity'=>$this->Item->get_info($related_item_id)->quantity + $requisition_items_data['related_item_total_quantity']);
+            $this->Item->save($related_item_data,$related_item_id);
+            
+            $qty_recv = $requisition_items_data['related_item_total_quantity'];
+            $recv_remarks ='REQS '.$requisition_id;
+            $inv_data = array
+            (
+                'trans_date'=>date('Y-m-d H:i:s'),
+                'trans_items'=>$item['item_id'],
+                'trans_user'=>$employee_id,
+                'trans_comment'=>$recv_remarks,
+                'trans_inventory'=>$qty_recv
+            );
+            $this->Inventory->insert($inv_data);
+
+        }
+        $this->db->trans_complete();
+        
+        if ($this->db->trans_status() === FALSE)
+        {
+            return -1;
+        }
+
+        return $requisition_id;
+    }
+
 	function get_receiving_items($receiving_id)
 	{
 		$this->db->from('receivings_items');
