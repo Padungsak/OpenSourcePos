@@ -181,6 +181,12 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
     </div>
 </div>
 
+<div class='form_field'>
+<?php 
+      echo form_hidden('stock_type',$stock_type==null ? 'warehouse' : $stock_type);
+?>
+</div>
+
 
 <div class="field_row clearfix">
 <?php echo form_label($this->lang->line('items_allow_alt_desciption').':', 'allow_alt_description',array('class'=>'wide')); ?>
@@ -426,7 +432,28 @@ $(document).ready(function()
 	$("#custom10").search();
 /** END GARRISON ADDED **/
 	
-	
+	//custom function. I leave this function as an example for creating JS custom function
+	//Please note that this function is not used
+    $.validator.addMethod(
+    "relatedItemNumber",
+    function(value)
+    {    
+        var site_url = "<?php echo site_url('items/is_sale_store_item');?>";
+        var ajax_return_result;
+        jQuery.ajax({
+                        mode: "abort",
+                        url:    site_url+"/"+value,
+                        type: "get",
+                        success: function(result) {                                                
+                                                        ajax_return_result = result;
+                                                  },
+                        async:   false
+        });
+        
+        return ajax_return_result;            
+    }, 
+    "relatedItemNumber failed");
+
 	$('#item_form').validate({
 		submitHandler:function(form)
 		{
@@ -477,6 +504,7 @@ $(document).ready(function()
 				required:true,
 				number:true
 			}
+			
    		},
 		messages:
 		{

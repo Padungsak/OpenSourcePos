@@ -41,13 +41,16 @@ else
 }
 ?>
 </label>
+
 <?php echo form_input(array('name'=>'item','id'=>'item','size'=>'40'));?>
+<!-- no need the new item button in sale page
 <div id="new_item_button_register" >
 		<?php echo anchor("items/view/-1/width:360",
 		"<div class='small_button'><span>".$this->lang->line('sales_new_item')."</span></div>",
 		array('class'=>'thickbox none','title'=>$this->lang->line('sales_new_item')));
 		?>
 	</div>
+-->
 
 </form>
 <table id="register">

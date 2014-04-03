@@ -133,13 +133,16 @@ class Receiving_lib
             //try to get item id given an item_number
             $item_id = $this->CI->Item->get_item_id($item_id);
             
-            //If it is not a pack then it is not in the back store
-            if($this->CI->Item_unit->get_info($item_id)->related_number == null)
-                return false;
             if(!$item_id)
                 return false;
         }
-
+        
+        $related_item_number = $this->CI->Item_unit->get_info($item_id)->related_number;
+        if($related_item_number!= null && !$this->CI->Item->is_warehouse_item_exist($related_item_number))
+            {
+                return false;
+            }  
+            
         //Get items in the requisition so far.
         $items = $this->get_cart();
 
@@ -173,8 +176,7 @@ class Receiving_lib
         }
 
         $insertkey=$maxkey+1;
-                        
-        $related_item = 
+                                
 
         //array records are identified by $insertkey and item_id is just another field.
         $item = array(($insertkey)=>
@@ -188,7 +190,16 @@ class Receiving_lib
         );
         
         $item[$insertkey]['unit_quantity']= $this->CI->Item_unit->get_info($item_id)->unit_quantity;
-        $item[$insertkey]['related_item'] = $this->CI->Item->get_info($this->CI->Item->get_item_id($this->CI->Item_unit->get_info($item_id)->related_number))->name;
+        $related_item_id = $this->CI->Item->get_item_id($related_item_number,'warehouse');
+        if($related_item_id == null)
+        {
+            $related_item_id = $this->CI->Item->get_item_id($related_item_number,'sale_stock');
+            if($related_item_id == null)
+            {
+                return false;
+            }
+        }
+        $item[$insertkey]['related_item'] = $this->CI->Item->get_info($related_item_id)->name;
 
         //Item already exists
         if($itemalreadyinsale)

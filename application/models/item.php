@@ -33,7 +33,7 @@ class Item extends CI_Model
 		return $this->db->count_all_results();
 	}
 
-	function get_all_filtered($low_inventory=0,$is_serialized=0,$no_description,$search_custom)/**GARRISON MODIFIED 4/21/2013**/
+	function get_all_filtered($low_inventory=0,$is_serialized=0,$no_description,$search_custom,$stock_type)/**GARRISON MODIFIED 4/21/2013**/
 	{
 		$this->db->from('items');
 		if ($low_inventory !=0 )
@@ -48,6 +48,13 @@ class Item extends CI_Model
 		{
 			$this->db->where('description','');
 		}
+        
+        if($stock_type!='all')
+        {
+            $this->db->where('stock_type',$stock_type);
+        }
+        
+        
 /**GARRISON SECTION ADDED 4/21/2013**/
 /**
 		if ($search_custom!=0 )
@@ -76,12 +83,12 @@ class Item extends CI_Model
 	{
 		$this->db->from('items');
 		$this->db->where('item_id',$item_id);
-		
+        
 		$query = $this->db->get();
 
 		if($query->num_rows()==1)
 		{
-			return $query->row();
+		    return $query->row();
 		}
 		else
 		{
@@ -103,11 +110,13 @@ class Item extends CI_Model
 	/*
 	Get an item id given an item number
 	*/
-	function get_item_id($item_number)
+	function get_item_id($item_number, $stock_type='warehouse')
 	{
 		$this->db->from('items');
 		$this->db->where('item_number',$item_number);
-
+        $this->db->where('stock_type',$stock_type);
+        $this->db->where('deleted',0);
+        
 		$query = $this->db->get();
 
 		if($query->num_rows()==1)
@@ -257,12 +266,13 @@ class Item extends CI_Model
 
 	}
 
-	function get_item_search_suggestions($search,$limit=25)
+	function get_item_search_suggestions($search,$limit=25,$stock_type='warehouse')
 	{
 		$suggestions = array();
 
 		$this->db->from('items');
 		$this->db->where('deleted',0);
+        $this->db->where('stock_type',$stock_type);
 		$this->db->like('name', $search);
 		$this->db->order_by("name", "asc");
 		$by_name = $this->db->get();
@@ -273,6 +283,7 @@ class Item extends CI_Model
 
 		$this->db->from('items');
 		$this->db->where('deleted',0);
+        $this->db->where('stock_type',$stock_type);
 		$this->db->like('item_number', $search);
 		$this->db->order_by("item_number", "asc");
 		$by_item_number = $this->db->get();
@@ -284,6 +295,7 @@ class Item extends CI_Model
 	//Search by description
 		$this->db->from('items');
 		$this->db->where('deleted',0);
+        $this->db->where('stock_type',$stock_type);
 		$this->db->like('description', $search);
 		$this->db->order_by("description", "asc");
 		$by_description = $this->db->get();
@@ -294,8 +306,9 @@ class Item extends CI_Model
 /** END GARRISON ADDED **/	
 		/** GARRISON ADDED 4/22/2013 **/		
 	//Search by custom fields
-		$this->db->from('items');
+		/*$this->db->from('items');
 		$this->db->where('deleted',0);
+        $this->db->where('stock_type',$stock_type);
 		$this->db->like('custom1', $search);
 		$this->db->or_like('custom2', $search);
 		$this->db->or_like('custom3', $search);
@@ -311,7 +324,7 @@ class Item extends CI_Model
 		foreach($by_description->result() as $row)
 		{
 			$suggestions[]=$row->item_id.'|'.$row->name;
-		}
+		}*/
 		/** END GARRISON ADDED **/
 		
 		//only return $limit suggestions
@@ -575,5 +588,27 @@ class Item extends CI_Model
 
 		return $this->db->get();
 	}
+    
+    function is_sale_store_item_exist($item_number)
+    {
+        $this->db->from('items');
+        $this->db->where('item_number',$item_number);
+        $this->db->where('stock_type','sale_stock');
+        $this->db->where('deleted',0);
+
+        $query = $this->db->get();
+        return ($query->num_rows()==1);
+    }
+    
+    function is_warehouse_item_exist($item_number)
+    {
+        $this->db->from('items');
+        $this->db->where('item_number',$item_number);
+        $this->db->where('stock_type','warehouse');
+        $this->db->where('deleted',0);
+
+        $query = $this->db->get();
+        return ($query->num_rows()==1);
+    }
 }
 ?>

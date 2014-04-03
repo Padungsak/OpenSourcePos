@@ -10,6 +10,7 @@ $(document).ready(function()
     enable_delete('<?php echo $this->lang->line($controller_name."_confirm_delete")?>','<?php echo $this->lang->line($controller_name."_none_selected")?>');
     enable_bulk_edit('<?php echo $this->lang->line($controller_name."_none_selected")?>');
 
+        
     $('#generate_barcodes').click(function()
     {
     	var selected = get_selected_values();
@@ -35,6 +36,16 @@ $(document).ready(function()
     $("#no_description").click(function()
     {
     	$('#items_filter_form').submit();
+    });
+    
+    $("#sale_stock").click(function()
+    {
+        $('#items_filter_form').submit();
+    });
+    
+    $("#warehouse_stock").click(function()
+    {
+        $('#items_filter_form').submit();
     });
 //GARRISON ADDED 4/21/2013
     $("#search_custom").click(function()
@@ -158,6 +169,10 @@ function show_hide_search_filter(search_filter_section, switchImgTag) {
 	<?php echo form_checkbox(array('name'=>'no_description','id'=>'no_description','value'=>1,'checked'=> isset($no_description)?  ( ($no_description)? 1 : 0) : 0)).' | ';?>
 	<?php echo form_label($this->lang->line('items_search_custom_items').' '.':', 'search_custom');//GARRISON ADDED 4/21/2013?>
 	<?php echo form_checkbox(array('name'=>'search_custom','id'=>'search_custom','value'=>1,'checked'=> isset($search_custom)?  ( ($search_custom)? 1 : 0) : 0)).' | ';//GARRISON ADDED 4/21/2013?>
+	<?php echo form_label($this->lang->line('items_stock_type').' '.':', 'stock_type');?>
+    <?php   $stock_type_array = array('all'=>'All','sale_stock'=>$this->lang->line('items_stock_type_sale'),'warehouse'=>$this->lang->line('items_stock_type_warehouse'));
+            echo form_dropdown('stock_type',$stock_type_array,$stock_type,'onchange="$(\'#items_filter_form\').submit();"'); ?>
+    </form>
 	<input type="hidden" name="search_section_state" id="search_section_state" value="<?php echo isset($search_section_state)?  ( ($search_section_state)? 'block' : 'none') : 'none';?>" />
 	</form>
 </div>

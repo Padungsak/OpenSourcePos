@@ -37,7 +37,7 @@ if (isset($error_message))
         <td style='text-align:center;'><?php echo $item['related_item']; ?></td>
         <td style='text-align:center;'><?php echo $item['unit_quantity']; ?></td>
         <?php
-            $related_item_id = $this->Item->get_item_id($this->Item_unit->get_info($item['item_id'])->related_number);
+            $related_item_id = $this->Item->get_item_id($this->Item_unit->get_info($item['item_id'])->related_number,'sale_stock');
             $total_related_item_qty = $this->Item->get_info($related_item_id)->quantity;
         ?>
         <td style='text-align:center;'><?php echo $total_related_item_qty; ?></td>

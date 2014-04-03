@@ -93,12 +93,8 @@ else
 ?>     
             <tr>
             <td><?php echo anchor("receivings/delete_item/$line",'['.$this->lang->line('common_delete').']');?></td>
-            <td style="align:center;"><?php echo $item['name']; ?><br />
-<?php
-            echo $item['description'];
-            echo form_hidden('description',$item['description']);
-?>
-            <br />
+            <td style="align:center;"><?php echo $item['name']; ?><br /> [<?php echo $this->Item->get_info($item['item_id'])->quantity; ?> in stock]</td>
+
             <td>
 <?php
             echo form_input(array('name'=>'quantity','value'=>$item['quantity'],'size'=>'2'));
