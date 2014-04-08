@@ -43,6 +43,8 @@ $lang['reports_comments'] = 'หมายเหตุ';
 $lang['reports_discount'] = 'ส่วนลด';
 $lang['reports_payment_type'] = 'ชนิดของการจ่าย';
 $lang['reports_sales'] = 'ขาย';
+$lang['reports_sales_retail'] = 'ขายปลีก';
+$lang['reports_sales_wholesale'] = 'ขายส่ง';
 $lang['reports_categories'] = 'หมวดหมู่';
 $lang['reports_customers'] = 'ลูกค้า';
 $lang['reports_suppliers'] = 'ผู้ผลิต';
@@ -84,4 +86,17 @@ $lang['reports_detailed_receivings_report'] = 'รายงานรายละ
 $lang['reports_sale_type'] = 'ชนิดของการขาย';
 $lang['reports_all'] = 'ทั้งหมด';
 $lang['reports_returns'] = 'คืน';
+
+$lang['reports_receiving_type'] = 'รูปแบบการรับสินค้า';
+$lang['reports_requisition'] = 'เบิกสินค้า';
+$lang['reports_receiving_id'] = 'IDรับสินค้า';
+$lang['reports_requisition_id'] = 'IDเบิกสินค้า';
+$lang['reports_requisition_by'] = 'ผู้เบิกสินค้า';
+$lang['reports_requisition_item'] = 'ชื่อสินค้า';
+$lang['reports_requisition_item_quantity'] = 'จำนวนเบิก';
+$lang['reports_requisition_related_item'] = 'สินค้าย่อย';
+$lang['reports_requisition_related_item_unit_quantity'] = 'จำนวนสินค้าย่ิอย';
+$lang['reports_requisition_related_item_total_quantity'] = 'จำนวนรวมสินค้าย่อย';
+$lang['reports_detailed_requisition_report'] = 'รายงานรายละเอียดการเบิกของ';
+
 ?>

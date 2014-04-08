@@ -31,7 +31,7 @@ if (isset($success))
 <label id="item_label" for="item">
 
 <?php
-if($mode=='sale')
+if($mode=='sale_retail' or $mode=='sale_wholesale')
 {
 	echo $this->lang->line('sales_find_or_scan_item');
 }
