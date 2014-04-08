@@ -275,18 +275,7 @@ class Receiving extends CI_Model
 		INNER JOIN ".$this->db->dbprefix('items')." ON  ".$this->db->dbprefix('receivings_items').'.item_id='.$this->db->dbprefix('items').'.item_id'."
 		GROUP BY receiving_id, item_id, line)");
 	}
-    
-    public function create_requisition_items_temp_table()
-    {
-        $this->db->query("CREATE TEMPORARY TABLE ".$this->db->dbprefix('requisition_items_temp')."
-        (SELECT date(requisition_time) as requisition_date, ".$this->db->dbprefix('requisitions_items').".requisition_id, comment, employee_id, 
-        ".$this->db->dbprefix('items').".item_id, related_item_id, requisition_quantity, related_item_quantity,
-        related_item_total_quantity, ".$this->db->dbprefix('requisitions_items').".line as line 
-        FROM ".$this->db->dbprefix('requisitions_items')."
-        INNER JOIN ".$this->db->dbprefix('requisitions')." ON  ".$this->db->dbprefix('requisitions_items').'.requisition_id='.$this->db->dbprefix('requisitions').'.requisition_id'."
-        INNER JOIN ".$this->db->dbprefix('items')." ON  ".$this->db->dbprefix('requisitions_items').'.item_id='.$this->db->dbprefix('items').'.item_id'."
-        GROUP BY requisition_id, item_id, line)");
-    }
+
 
 }
 ?>

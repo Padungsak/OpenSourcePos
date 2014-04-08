@@ -23,35 +23,10 @@ if(isset($error))
 		<?php echo form_dropdown('end_year',$years, $selected_year, 'id="end_year"'); ?>
 	</div>
 	
-	<?php
-	if($mode == 'sale')
-    {
-    ?>
-    	<?php echo form_label($this->lang->line('reports_sale_type'), 'reports_sale_type_label', array('class'=>'required')); ?>
-    	<div id='report_sale_type'>
-    		<?php echo form_dropdown('sale_type',array('all' => $this->lang->line('reports_all'), 
-    		'sales_retail' => $this->lang->line('reports_sales_retail'), 
-    		'sales_wholesale' => $this->lang->line('reports_sales_wholesale'),
-    		'returns' => $this->lang->line('reports_returns')), 'all', 'id="input_type"'); ?>
-    	</div>
-    <?php
-    }
-    elseif($mode == 'receiving')
-    {
-    ?>
-        <?php echo form_label($this->lang->line('reports_receiving_type'), 'reports_receiving_type_label', array('class'=>'required')); ?>
-        <div id='report_receiving_type'>
-        <?php echo form_dropdown('receiving_type',array('all' => $this->lang->line('reports_all'), 
-        'receiving' => $this->lang->line('reports_receivings'), 
-        'returns' => $this->lang->line('reports_returns')), 'all', 'id="input_type"'); ?>
-        </div>
-    <?php
-    }
-    elseif($mode == 'requisition')
-    {
-        //Do nothing
-    }
-    ?>
+	<?php echo form_label($this->lang->line('reports_sale_type'), 'reports_sale_type_label', array('class'=>'required')); ?>
+	<div id='report_sale_type'>
+		<?php echo form_dropdown('sale_type',array('all' => $this->lang->line('reports_all'), 'sales' => $this->lang->line('reports_sales'), 'returns' => $this->lang->line('reports_returns')), 'all', 'id="sale_type"'); ?>
+	</div>
 <?php
 echo form_button(array(
 	'name'=>'generate_report',
@@ -68,24 +43,18 @@ $(document).ready(function()
 {
 	$("#generate_report").click(function()
 	{		
-		var input_type = $("#input_type").val();
+		var sale_type = $("#sale_type").val();
 		
 		if ($("#simple_radio").attr('checked'))
 		{
-			window.location = window.location+'/'+$("#report_date_range_simple option:selected").val() + '/' + input_type;
+			window.location = window.location+'/'+$("#report_date_range_simple option:selected").val() + '/' + sale_type;
 		}
 		else
 		{
 			var start_date = $("#start_year").val()+'-'+$("#start_month").val()+'-'+$('#start_day').val();
 			var end_date = $("#end_year").val()+'-'+$("#end_month").val()+'-'+$('#end_day').val();
-	        if(input_type == null)
-	        {
-	            window.location = window.location+'/'+start_date + '/'+ end_date;
-	        }
-	        else
-	        {
-			     window.location = window.location+'/'+start_date + '/'+ end_date+ '/' + input_type;
-			}
+	
+			window.location = window.location+'/'+start_date + '/'+ end_date+ '/' + sale_type;
 		}
 	});
 	

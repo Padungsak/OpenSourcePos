@@ -157,7 +157,7 @@ class Sale_lib
 	function get_mode()
 	{
 		if(!$this->CI->session->userdata('sale_mode'))
-			$this->set_mode('sale_retail');
+			$this->set_mode('sale');
 
 		return $this->CI->session->userdata('sale_mode');
 	}
@@ -169,11 +169,16 @@ class Sale_lib
 
 	function add_item($item_id,$quantity=1,$discount=0,$price=null,$description=null,$serialnumber=null)
 	{
-		//make sure item exists	     
-		if($this->validate_item($item_id) == false)
-        {
-            return false;
-        }
+		//make sure item exists
+		if(!$this->CI->Item->exists($item_id))
+		{
+			//try to get item id given an item_number
+			$item_id = $this->CI->Item->get_item_id($item_id);
+
+			if(!$item_id)
+				return false;
+		}
+
 
 		//Alain Serialization and Description
 
@@ -245,11 +250,14 @@ class Sale_lib
 	function out_of_stock($item_id)
 	{
 		//make sure item exists
-		if($this->validate_item($item_id) == false)
-        {
-            return false;
-        }
+		if(!$this->CI->Item->exists($item_id))
+		{
+			//try to get item id given an item_number
+			$item_id = $this->CI->Item->get_item_id($item_id);
 
+			if(!$item_id)
+				return false;
+		}
 		
 		$item = $this->CI->Item->get_info($item_id);
 		$quanity_added = $this->get_quantity_already_added($item_id);
@@ -486,28 +494,5 @@ class Sale_lib
 
 		return to_currency_no_money($total);
 	}
-    
-    function validate_item(&$item_id)
-    {
-        //make sure item exists
-        if(!$this->CI->Item->exists($item_id))
-        {
-            //try to get item id given an item_number
-            $mode = $this->get_mode();
-            $item_id;
-            if($mode == 'sale_retail')
-            {
-                $item_id = $this->CI->Item->get_item_id($item_id, 'sale_stock');
-            }
-            elseif($mode == 'sale_wholesale')
-            {
-                $item_id = $this->CI->Item->get_item_id($item_id, 'warehouse');
-            }
-
-            if(!$item_id)
-                return false;
-        }
-        return true;
-    }
 }
 ?>
