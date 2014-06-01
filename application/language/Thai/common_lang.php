@@ -1,6 +1,6 @@
 <?php
 $lang['common_common']='ธรรมดา';
-$lang['common_submit']='ยื่น';
+$lang['common_submit']='ยอมรับ';
 $lang['common_or']='หรือ';
 $lang['common_powered_by']='สนับสนุนโดย';
 $lang['common_welcome']='ยินดีต้อนรับ';
@@ -37,5 +37,5 @@ $lang['common_return_policy']='กฏการคืน';
 $lang['common_price']='ราคา';
 $lang['common_welcome_message']= 'ยินดีต้อนรับเข้าสู่โปรแกรมขายหน้าร้านขั้นเทบ!';
 $lang['common_inv']='ยอด';
-$lang['common_det']='ย่อยๆ';
+$lang['common_det']='สรุป';
 ?>

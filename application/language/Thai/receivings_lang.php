@@ -32,5 +32,5 @@ $lang['reqs_unit_quantity_total']='จำนวนรวม';
 $lang['reqs_related_item_quantity']='จำนวนสินค้าที่เกี่ยวข้อง';
 $lang['reqs_receipt']='บิลเบิกสินค้า';
 $lang['reqs_transaction_failed'] = 'เบิกสินค้าล้มเหลว';
-$lang['reqs_unable_to_add_item']='ไม่สามารเพิ่มสินค้าได้';
+$lang['reqs_unable_to_add_item']='ไม่สามารถเพิ่มสินค้าได้';
 ?>
